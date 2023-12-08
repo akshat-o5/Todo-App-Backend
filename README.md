@@ -60,3 +60,6 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Blog
+For more information, do checkout my blog [Blog](https://akshato2.hashnode.dev/building-a-todo-app-with-flask-and-mysql-a-comprehensive-guide)
