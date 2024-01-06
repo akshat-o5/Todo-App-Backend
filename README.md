@@ -1,6 +1,7 @@
 # Todo App
 
 A basic Todo App built with Flask and MySQL.
+Stay organized and boost your productivity with our intuitive ToDo app! Effortlessly manage tasks, set priorities, and track your progress with a user-friendly interface. Whether you're tackling work projects or personal goals, this app simplifies your day, helping you stay focused on what matters most. Never miss a deadline again – download our ToDo app and take control of your tasks with ease!
 
 ## Features
 - Add, update, and delete Todo items.
