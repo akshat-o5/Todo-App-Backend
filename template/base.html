@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+</head>
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">Todo App</h1>
+
+        <form class="ui form" id="todoForm">
+            <div class="field">
+                <label for="title">Todo List</label>
+                <input type="text" id="title" name="title" placeholder="Enter Todo .....">
+                <br>
+                <button class="ui blue button" type="button" onclick="addTodo()">Add</button>
+            </div>
+        </form>
+        
+        {% for todo in todos %}
+        <div class="ui segment">
+            <p class="ui big header">{{ todo.ID }} | {{ todo.title }}</p>
+            
+            {% if todo.completed == 0 %}
+            <span class="ui grey label">Not Completed</span>
+            {% else %}
+            <span class="ui green label">Completed</span>
+            {% endif %}
+            
+            <button class="ui blue button" onclick="updateTodo({{ todo.ID }})">Update</button>
+            <button class="ui red button" onclick="deleteTodo({{ todo.ID }})">Delete</button>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <script>
+        
+        // fetch api for add
+        function addTodo() {
+            // Get form data
+            var title = document.getElementById('title').value;
+
+            // Create FormData object and append data
+            var formData = new FormData();
+            formData.append('title', title);
+
+            // Fetch API request
+            fetch('/add', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                // Handle success or update UI accordingly
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle error or update UI accordingly
+            });
+        }
+
+        // fetch api for delete
+        function deleteTodo(todoId) {
+            fetch(`/delete/${todoId}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+            .then(response => response.json())
+            .then(data => {
+              console.log(data.message);
+              // Handle success or update UI accordingly
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              // Handle error or update UI accordingly
+            });
+          }   
+          
+          // fetch api for update
+          function updateTodo(todoId) {
+            console.log('Updating todo with ID:', todoId);
+        
+            // Additional console.log statements for other relevant data
+        
+            fetch(`/toggle/${todoId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // Include the body of the request if applicable
+                body: JSON.stringify({ /* your data here */ }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                // Handle success or update UI accordingly
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle error or update UI accordingly
+            });
+        }
+    </script>
+</body>
+</html>
